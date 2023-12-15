@@ -429,6 +429,15 @@ punycode@^2.1.0:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.3.1.tgz#027422e2faec0b25e1549c3e1bd8309b9133b6e5"
   integrity sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==
 
+rbxts-build@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/rbxts-build/-/rbxts-build-2.2.2.tgz#5e39d9b2dd23e25f31f10dd5ea87678904ff26b6"
+  integrity sha512-CTeoWLI6jvjd/ll4z+/xpQIQEtq050oH3TaeWRfb+vItiq2axhzovEdLgsqQRrgBrcwXChrXF1aKj7KpFjRFgA==
+  dependencies:
+    kleur "^4.1.5"
+    yargs "^17.7.2"
+    zod "^3.22.4"
+
 rbxts-transform-debug@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/rbxts-transform-debug/-/rbxts-transform-debug-2.2.0.tgz#ed9fd8ea6b8f8986d0de5ddeeefdf1c0b083082c"
@@ -611,3 +620,8 @@ yargs@^17.7.2:
     string-width "^4.2.3"
     y18n "^5.0.5"
     yargs-parser "^21.1.1"
+
+zod@^3.22.4:
+  version "3.22.4"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-3.22.4.tgz#f31c3a9386f61b1f228af56faa9255e845cf3fff"
+  integrity sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==
