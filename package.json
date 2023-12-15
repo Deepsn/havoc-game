@@ -6,7 +6,7 @@
   "scripts": {
     "serve": "rojo serve",
     "build": "rbxtsc",
-    "watch": "rbxtsc -w"
+    "watch": "rbxtsc -w --verbose"
   },
   "keywords": [],
   "author": "",
@@ -17,5 +17,13 @@
     "@rbxts/types": "^1.0.737",
     "roblox-ts": "^2.2.0",
     "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@rbxts/matter": "^0.6.6",
+    "@rbxts/plasma": "0.4.1-ts.1",
+    "@rbxts/rewire": "^0.3.0",
+    "@rbxts/services": "^1.5.1",
+    "@rbxts/webstorm-fix": "^1.0.0",
+    "rbxts-transform-debug": "^2.2.0"
   }
 }
