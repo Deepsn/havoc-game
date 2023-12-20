@@ -11,7 +11,18 @@ local function parse(contents: string)
         local value = lineInfo[2]
 
         if value then
-            data[key] = value
+            data[key] = value:gsub("%s+$", "")
+        end
+    end
+
+    -- transform data into roblox data types
+    for key, value in data do
+        if value == "true" then
+            data[key] = true
+        elseif value == "false" then
+            data[key] = false
+        elseif tonumber(value) then
+            data[key] = tonumber(value)
         end
     end
 
