@@ -1,10 +1,10 @@
 local roblox = require("@lune/roblox")
 
-local merger = {}
+local manager = {}
 
 type GamePlace = typeof(roblox.deserializePlace(""))
 
-function merger.mergePlaces(gamePlace: GamePlace, buildingPlace: GamePlace)
+function manager.mergePlaces(gamePlace: GamePlace, buildingPlace: GamePlace)
     local services_to_merge = {
         "Workspace",
         "ReplicatedStorage",
@@ -30,4 +30,17 @@ function merger.mergePlaces(gamePlace: GamePlace, buildingPlace: GamePlace)
     end
 end
 
-return merger
+function manager.setup(game: GamePlace)
+    local workspace = game:GetService("Workspace")
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+    for _, instance in workspace:GetChildren() do
+        if not instance:IsA("Folder") or instance:GetAttribute("Ignore") then
+            continue
+        end
+
+        instance.Parent = ReplicatedStorage
+    end
+end
+
+return manager

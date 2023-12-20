@@ -1,7 +1,7 @@
 local process = require("@lune/process")
 local roblox = require("@lune/roblox")
 local env = require("modules/env-reader").config()
-local merger = require('modules/place-merger')
+local manager = require('modules/place-manager')
 local place = require('modules/place')
 
 local placeName = "game.rbxl"
@@ -47,7 +47,8 @@ print("🕒 Merging building place into game place")
 local scriptsPlaceContents = place.getFromFile(placeName)
 local scriptsGame = roblox.deserializePlace(scriptsPlaceContents)
 
-merger.mergePlaces(scriptsGame, buildingGame)
+manager.mergePlaces(scriptsGame, buildingGame)
+manager.setup(scriptsGame)
 
 print("✅ Merged building place into game place")
 
