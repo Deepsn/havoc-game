@@ -12,11 +12,19 @@ function merger.mergePlaces(gamePlace: GamePlace, buildingPlace: GamePlace)
         "Lighting",
     }
 
+    local blacklisted_instances = {
+        "Camera"
+    }
+
     for _, service_name in services_to_merge do
         local buildingService = buildingPlace:GetService(service_name)
         local gameService = gamePlace:GetService(service_name)
 
         for _, child in ipairs(buildingService:GetChildren()) do
+            if table.find(blacklisted_instances, child.ClassName) then
+                continue
+            end
+
             child.Parent = gameService
         end
     end
