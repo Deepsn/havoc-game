@@ -6,3 +6,5 @@
 .vscode
 sourcemap.json
 .env
+game.rbxl
+game.rbxl.lock
