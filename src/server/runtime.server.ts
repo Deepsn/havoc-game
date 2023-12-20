@@ -1,10 +1,11 @@
-import { start } from "@/shared/matter/start";
+import {start} from "@/shared/matter/start";
 
 declare const script: {
 	Parent: { systems: Folder } & Folder;
 } & LuaSourceContainer;
 
-export interface ServerState {}
+// biome-ignore lint/suspicious/noEmptyInterface: no serverstate for now
+export  interface ServerState {}
 
 const serverState: ServerState = {};
 
