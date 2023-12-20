@@ -5,10 +5,11 @@ local manager = require('modules/place-manager')
 local place = require('modules/place')
 local placePublisher = require('modules/place-publisher')
 
-local placeName = "game.rbxl"
-local placeId = assert(env.PLACE_ID, "PLACE_ID not found in .env")
-local universeId = assert(env.UNIVERSE_ID, "UNIVERSE_ID not found in .env")
-local testingPlaceApiKey = assert(env.TESTING_PLACE_API_kEY, "TESTING_PLACE_API_kEY not found in .env")
+local PLACE_NAME = "game.rbxl"
+local BUILD_PLACE_ID = env.BUILD_PLACE_ID
+local TEST_PLACE_ID = env.TEST_PLACE_ID
+local TEST_UNIVERSE_ID = env.TEST_UNIVERSE_ID
+local TEST_PLACE_API_KEY = env.TEST_PLACE_API_KEY
 
 local t0 = os.clock()
 
@@ -39,7 +40,7 @@ end
 -- Download the building place file
 print("🕒 Downloading building place")
 
-local buildPlaceContents = place.download(placeId)
+local buildPlaceContents = place.download(BUILD_PLACE_ID)
 local buildingGame = roblox.deserializePlace(buildPlaceContents)
 
 print("⌛ Downloaded building place")
@@ -47,7 +48,7 @@ print("⌛ Downloaded building place")
 -- Merge the building place into the game place
 print("🕒 Merging building place into game place")
 
-local scriptsPlaceContents = place.getFromFile(placeName)
+local scriptsPlaceContents = place.getFromFile(PLACE_NAME)
 local scriptsGame = roblox.deserializePlace(scriptsPlaceContents)
 
 manager.mergePlaces(scriptsGame, buildingGame)
@@ -58,7 +59,7 @@ print("✅ Merged building place into game place")
 -- Save the game place
 print("🕒 Saving game place")
 
-place.save(scriptsGame, placeName)
+place.save(scriptsGame, PLACE_NAME)
 
 print("💾 Saved game place")
 
@@ -66,7 +67,7 @@ if not env.CANCEL_TESTING_PUBLISH then
     -- Publish testing place
     print("🕒 Publishing testing place")
 
-    local versionNumber = placePublisher.publish(placeName, testingPlaceApiKey, universeId, placeId)
+    local versionNumber = placePublisher.publish(PLACE_NAME, TEST_PLACE_API_KEY, TEST_UNIVERSE_ID, TEST_PLACE_ID)
 
     print("✅ Published testing place with version number " .. versionNumber)
 end

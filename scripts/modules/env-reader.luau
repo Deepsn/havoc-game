@@ -48,7 +48,11 @@ local function config(path: string?): typeof(env)
         error(`Failed to parse .env file\nError: ${error}`)
     end
 
-    return env
+    return setmetatable(env, {
+        __index = function(_env, key)
+            return assert(rawget(_env, key), `Failed to find environment variable "{key}"`)
+        end
+    })
 end
 
 return {
