@@ -12,7 +12,8 @@
     "open": "rbxts-build open",
     "start": "rbxts-build start",
     "stop": "rbxts-build stop",
-    "sync": "lune scripts/sync-place-types"
+    "sync:games": "lune scripts/build-place",
+    "sync:types": "lune scripts/sync-place-types"
   },
   "keywords": [],
   "author": "Speed",

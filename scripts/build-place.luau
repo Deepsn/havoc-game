@@ -3,9 +3,12 @@ local roblox = require("@lune/roblox")
 local env = require("modules/env-reader").config()
 local manager = require('modules/place-manager')
 local place = require('modules/place')
+local placePublisher = require('modules/place-publisher')
 
 local placeName = "game.rbxl"
 local placeId = assert(env.PLACE_ID, "PLACE_ID not found in .env")
+local universeId = assert(env.UNIVERSE_ID, "UNIVERSE_ID not found in .env")
+local testingPlaceApiKey = assert(env.TESTING_PLACE_API_kEY, "TESTING_PLACE_API_kEY not found in .env")
 
 local t0 = os.clock()
 
@@ -58,6 +61,15 @@ print("🕒 Saving game place")
 place.save(scriptsGame, placeName)
 
 print("💾 Saved game place")
+
+if not env.CANCEL_TESTING_PUBLISH then
+    -- Publish testing place
+    print("🕒 Publishing testing place")
+
+    local versionNumber = placePublisher.publish(placeName, testingPlaceApiKey, universeId, placeId)
+
+    print("✅ Published testing place with version number " .. versionNumber)
+end
 
 print("🕒 Done in " .. os.clock() - t0 .. "s")
 print("🕒 Compile time: " .. compileT1 - compileT0 .. "s")
