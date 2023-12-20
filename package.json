@@ -26,7 +26,9 @@
   "dependencies": {
     "@rbxts/matter": "^0.6.6",
     "@rbxts/plasma": "0.4.1-ts.1",
+    "@rbxts/react-roblox": "^0.2.0",
     "@rbxts/rewire": "^0.3.0",
+    "@rbxts/roact": "npm:@rbxts/react-ts@latest",
     "@rbxts/services": "^1.5.1",
     "@rbxts/webstorm-fix": "^1.0.0",
     "rbxts-build": "^2.2.2",
