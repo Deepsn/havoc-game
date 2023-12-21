@@ -1,6 +1,6 @@
 import { attributeName } from "@/shared/constants/matter-component";
 import { AnyEntity, World } from "@rbxts/matter";
-import { PlayerGui } from "../constants/player";
+import { LocalPlayer, PlayerGui } from "../constants/player";
 import { RootSystem } from "../runtime.client";
 import { getModelFromPart } from "../utils/model-utils";
 import { getMouseTarget } from "../utils/mouse-utils";
@@ -10,8 +10,20 @@ hoverHighlight.OutlineTransparency = 0;
 hoverHighlight.FillTransparency = 1;
 hoverHighlight.Parent = PlayerGui;
 
+const raycastParams = new RaycastParams();
+raycastParams.FilterType = Enum.RaycastFilterType.Exclude;
+
 function ObjectHovers(world: World) {
-	const target = getMouseTarget();
+	const character = LocalPlayer.Character;
+
+	if (
+		character &&
+		!raycastParams.FilterDescendantsInstances.includes(character)
+	) {
+		raycastParams.AddToFilter(character);
+	}
+
+	const target = getMouseTarget(raycastParams);
 	const targetModel =
 		target.Instance !== undefined
 			? getModelFromPart(target.Instance)
