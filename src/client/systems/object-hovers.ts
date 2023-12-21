@@ -1,3 +1,4 @@
+import { Drop } from "@/shared/components";
 import { attributeName } from "@/shared/constants/matter-component";
 import { AnyEntity, World } from "@rbxts/matter";
 import { LocalPlayer, PlayerGui } from "../constants/player";
@@ -30,10 +31,12 @@ function ObjectHovers(world: World) {
 			: undefined;
 
 	const entityId = targetModel?.GetAttribute(attributeName) as
-		| number
+		| AnyEntity
 		| undefined;
 	const targetExists =
-		entityId !== undefined && world.contains(entityId as AnyEntity);
+		entityId !== undefined &&
+		world.contains(entityId) &&
+		world.get(entityId, Drop) !== undefined;
 
 	hoverHighlight.Adornee = targetExists ? targetModel : undefined;
 }
