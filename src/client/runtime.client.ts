@@ -1,16 +1,19 @@
-import {start} from "@/shared/matter/start";
-import {ReplicatedStorage} from "@rbxts/services";
-import {System} from "@rbxts/matter";
-import {startReact} from "@/client/components/app";
+import { startReact } from "@/client/components/app";
+import { start } from "@/shared/matter/start";
+import { System } from "@rbxts/matter";
+import { ReplicatedStorage } from "@rbxts/services";
 
 declare const script: {
 	Parent: { systems: Folder } & Folder;
 } & LuaSourceContainer;
 
-// biome-ignore lint/suspicious/noEmptyInterface: no clientstate for now
-export  interface ClientState {}
+export interface ClientState {
+	debugEnabled?: boolean;
+}
 
-const clientState: ClientState = {};
+const clientState: ClientState = {
+	debugEnabled: true,
+};
 
 const [world, state] = start(
 	[script.Parent.systems, ReplicatedStorage.Shared.systems],
