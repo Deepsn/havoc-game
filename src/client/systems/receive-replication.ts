@@ -1,38 +1,75 @@
 import { MatterComponents } from "@/shared/matter/component";
 import { remotes } from "@/shared/remotes";
-import { AnyEntity, World, useEvent } from "@rbxts/matter";
+import { AnyComponent, AnyEntity, World, useEvent } from "@rbxts/matter";
+import { ComponentCtor } from "@rbxts/matter/lib/component";
 import { $print } from "rbxts-transform-debug";
 import { ClientState } from "../runtime.client";
 
 const localEntityMap = new Map<AnyEntity, AnyEntity>();
 
 function ReceiveReplication(world: World, state: ClientState) {
+	function debugPrint(...messages: unknown[]) {
+		if (state.debugEnabled) {
+			$print(...messages);
+		}
+	}
+
 	for (const [, payload] of useEvent(
 		remotes.matter.replicate,
 		remotes.matter.replicate,
 	)) {
-		$print("Received replication from server", payload);
+		debugPrint("Received replication from server", payload);
+
 		for (const [serverEntityId, components] of payload) {
-			const clientEntityId = localEntityMap.get(serverEntityId);
+			let clientEntityId = localEntityMap.get(serverEntityId);
 
 			if (clientEntityId && next(components) === undefined) {
 				world.despawn(clientEntityId);
 				localEntityMap.delete(serverEntityId);
 
-				if (state.debugEnabled) {
-					$print(`Entity despawned ${clientEntityId}`);
-				}
+				debugPrint(`Entity despawned ${clientEntityId}`);
 
 				continue;
 			}
 
-			const componentsToAdd = new Set<AnyEntity>();
-			const componentsToRemove = new Set<AnyEntity>();
+			const componentsToAdd = new Array<AnyComponent>();
+			const componentsToRemove = new Array<ComponentCtor>();
 
 			for (const [id, componentData] of components) {
-				if (componentData) {
-					$print(id, componentData, MatterComponents, MatterComponents.get(id));
+				const component = MatterComponents.get(id);
+
+				if (!component) {
+					continue;
 				}
+
+				if (componentData) {
+					componentsToAdd.push(component(componentData));
+					$print(id, componentData, MatterComponents, MatterComponents.get(id));
+				} else {
+					componentsToRemove.push(component);
+				}
+			}
+
+			if (!clientEntityId) {
+				clientEntityId = world.spawn(...componentsToAdd);
+
+				localEntityMap.set(serverEntityId, clientEntityId);
+
+				debugPrint(
+					`Spawned entity ${clientEntityId}(${serverEntityId}) with ${componentsToAdd.join()}`,
+				);
+			} else {
+				if (componentsToAdd.size() > 0) {
+					world.insert(clientEntityId, ...componentsToAdd);
+				}
+
+				if (componentsToRemove.size() > 0) {
+					world.remove(clientEntityId, ...componentsToRemove);
+				}
+
+				debugPrint(
+					`Updated entity ${clientEntityId}(${serverEntityId}) with ${componentsToAdd.join()} and removed ${componentsToRemove.join()}`,
+				);
 			}
 		}
 	}
