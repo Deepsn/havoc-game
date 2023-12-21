@@ -1,3 +1,3 @@
-import { component } from "@rbxts/matter";
+import { CreateComponent } from "../matter/component";
 
-export const Model = component<{ instance: Model }>();
+export const Model = CreateComponent<{ instance: Model }>();

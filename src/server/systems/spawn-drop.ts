@@ -1,5 +1,4 @@
-import { Drop } from "@/shared/components/drop";
-import { Model } from "@/shared/components/model";
+import { Drop, Model } from "@/shared/components";
 import { World, useThrottle } from "@rbxts/matter";
 import { ReplicatedStorage, Workspace } from "@rbxts/services";
 import { $print } from "rbxts-transform-debug";

@@ -29,6 +29,7 @@
     "@rbxts/matter": "^0.6.6",
     "@rbxts/plasma": "0.4.1-ts.1",
     "@rbxts/react-roblox": "^0.2.0",
+    "@rbxts/remo": "^1.3.1",
     "@rbxts/rewire": "^0.3.0",
     "@rbxts/roact": "npm:@rbxts/react-ts@latest",
     "@rbxts/services": "^1.5.1",
