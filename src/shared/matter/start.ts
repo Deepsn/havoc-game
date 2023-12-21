@@ -1,9 +1,9 @@
-import {Debugger, Loop, System, World} from "@rbxts/matter";
+import { IS_CLIENT } from "@/shared/constants/core";
+import { Debugger, Loop, System, World } from "@rbxts/matter";
 import Plasma from "@rbxts/plasma";
-import {Context, HotReloader} from "@rbxts/rewire";
-import {$warn} from "rbxts-transform-debug";
-import {RunService, UserInputService} from "@rbxts/services";
-import {IS_CLIENT} from "@/shared/constants/core";
+import { Context, HotReloader } from "@rbxts/rewire";
+import { RunService, UserInputService } from "@rbxts/services";
+import { $warn } from "rbxts-transform-debug";
 
 export function start<S extends object>(
 	containers: Instance[],

@@ -1,6 +1,7 @@
 import { attributeName } from "@/shared/constants/matter-component";
 import { AnyEntity, World } from "@rbxts/matter";
 import { PlayerGui } from "../constants/player";
+import { RootSystem } from "../runtime.client";
 import { getModelFromPart } from "../utils/model-utils";
 import { getMouseTarget } from "../utils/mouse-utils";
 
@@ -25,4 +26,4 @@ function ObjectHovers(world: World) {
 	hoverHighlight.Adornee = targetExists ? targetModel : undefined;
 }
 
-export = ObjectHovers;
+export = ObjectHovers satisfies RootSystem;

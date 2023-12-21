@@ -1,4 +1,5 @@
 import { start } from "@/shared/matter/start";
+import { System } from "@rbxts/matter";
 import { ReplicatedStorage } from "@rbxts/services";
 
 declare const script: {
@@ -10,4 +11,9 @@ export interface ServerState {}
 
 const serverState: ServerState = {};
 
-start([script.Parent.systems, ReplicatedStorage.Shared.systems], serverState);
+const [world, state] = start(
+	[script.Parent.systems, ReplicatedStorage.Shared.systems],
+	serverState,
+);
+
+export type RootSystem = System<[typeof world, typeof state]>;

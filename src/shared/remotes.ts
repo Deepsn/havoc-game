@@ -1,11 +1,12 @@
-import { AnyComponent, AnyEntity } from "@rbxts/matter";
-import { Client, createRemotes, namespace, remote } from "@rbxts/remo";
+import { AnyComponent } from "@rbxts/matter";
+import { Client, Server, createRemotes, namespace, remote } from "@rbxts/remo";
 
 export const remotes = createRemotes({
 	matter: namespace({
 		replicate: remote<
 			Client,
-			[payload: Map<AnyEntity, Map<string, AnyComponent>>]
+			[payload: Map<string, Map<string, AnyComponent>>]
 		>(),
+		start: remote<Server>(),
 	}),
 });

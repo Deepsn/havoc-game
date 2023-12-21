@@ -1,11 +1,12 @@
 import { MatterComponents } from "@/shared/matter/component";
+import { useStartup } from "@/shared/matter/hooks/useStartup";
 import { remotes } from "@/shared/remotes";
 import { AnyComponent, AnyEntity, World, useEvent } from "@rbxts/matter";
 import { ComponentCtor } from "@rbxts/matter/lib/component";
 import { $print } from "rbxts-transform-debug";
-import { ClientState } from "../runtime.client";
+import { ClientState, RootSystem } from "../runtime.client";
 
-const localEntityMap = new Map<AnyEntity, AnyEntity>();
+const localEntityMap = new Map<string, AnyEntity>();
 
 function ReceiveReplication(world: World, state: ClientState) {
 	function debugPrint(...messages: unknown[]) {
@@ -73,6 +74,14 @@ function ReceiveReplication(world: World, state: ClientState) {
 			}
 		}
 	}
+
+	if (useStartup()) {
+		debugPrint("Started receiving replication");
+		remotes.matter.start.fire();
+	}
 }
 
-export = ReceiveReplication;
+export = {
+	system: ReceiveReplication,
+	priority: math.huge,
+} satisfies RootSystem;
