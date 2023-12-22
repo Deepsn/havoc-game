@@ -49,10 +49,23 @@
   resolved "https://registry.yarnpkg.com/@rbxts/compiler-types/-/compiler-types-2.2.0-types.0.tgz#cba7ff0cde0fa9ac18abb4251452814232d67a1e"
   integrity sha512-ycsIGfp49MypbRi4eEPCXTjbb2iLKL1/2GjRrFLuLJL74fCfVtbAXIo2LiZhPrgqIiBLomb4JN5Rcqv4304bzw==
 
+"@rbxts/compiler-types@^1.2.3-types.1":
+  version "1.2.3-types.1"
+  resolved "https://registry.yarnpkg.com/@rbxts/compiler-types/-/compiler-types-1.2.3-types.1.tgz#d7945531c917d62bafadd2b5aa6c2f2e88a2036a"
+  integrity sha512-SXXIBazyJ7N6d2xcy471/kqZZpCv7EDOWrRJ45jcv3g00VQaZwYl4Elr10woqRloIblQanwJ7yUqGXAsWv7iuQ==
+
 "@rbxts/luau-polyfill-internal@1.2.3-ts.0":
   version "1.2.3-ts.0"
   resolved "https://registry.yarnpkg.com/@rbxts/luau-polyfill-internal/-/luau-polyfill-internal-1.2.3-ts.0.tgz#01fec60c39e800d8b786d089648c54b1ecbf9606"
   integrity sha512-LG1h4uf+MpMxu6RfOLowRe+NOs2SWXzCmYd49WvfR8ZKVUNHvT0BeVIL9rS9q//mTlz8BXDyl5EVIyjnKgsekA==
+
+"@rbxts/make@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@rbxts/make/-/make-1.0.6.tgz#9fbed42cd263b6ce997cdb6a840f77fdeb9e6b36"
+  integrity sha512-ZL1FMxDqWv1TIzE064JFen75rgybV7ulQHTUVqXuvngDBa3lP3btFiIdUO2MMJAOZpHKinC9jFudcCenrprcPg==
+  dependencies:
+    "@rbxts/compiler-types" "^1.2.3-types.1"
+    "@rbxts/types" "^1.0.537"
 
 "@rbxts/matter@^0.6.6":
   version "0.6.6"
@@ -158,7 +171,7 @@
   dependencies:
     "@rbxts/luau-polyfill-internal" "1.2.3-ts.0"
 
-"@rbxts/types@^1.0.737":
+"@rbxts/types@^1.0.537", "@rbxts/types@^1.0.737":
   version "1.0.737"
   resolved "https://registry.yarnpkg.com/@rbxts/types/-/types-1.0.737.tgz#52aa057c06b23f33fb4593c9d2c97dbf805d7dc0"
   integrity sha512-qoap8d2/oGczr2jMGfuj2SRThKbXQwFOCdJHeIs232whLcdDjPr7KowRagq4so8n/PrnDc5ep+fMuIZ1nr6Odg==

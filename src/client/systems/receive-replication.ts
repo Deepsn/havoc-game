@@ -84,4 +84,4 @@ function ReceiveReplication(world: World, state: ClientState) {
 export = {
 	system: ReceiveReplication,
 	priority: math.huge,
-} satisfies RootSystem;
+} as RootSystem;

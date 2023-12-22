@@ -2,7 +2,7 @@ import { Drop } from "@/shared/components";
 import { attributeName } from "@/shared/constants/matter-component";
 import { AnyEntity, World } from "@rbxts/matter";
 import { LocalPlayer, PlayerGui } from "../constants/player";
-import { RootSystem } from "../runtime.client";
+import { ClientState, RootSystem } from "../runtime.client";
 import { getModelFromPart } from "../utils/model-utils";
 import { getMouseTarget } from "../utils/mouse-utils";
 
@@ -14,7 +14,7 @@ hoverHighlight.Parent = PlayerGui;
 const raycastParams = new RaycastParams();
 raycastParams.FilterType = Enum.RaycastFilterType.Exclude;
 
-function ObjectHovers(world: World) {
+function ObjectHovers(world: World, state: ClientState) {
 	const character = LocalPlayer.Character;
 
 	if (
@@ -39,6 +39,7 @@ function ObjectHovers(world: World) {
 		world.get(entityId, Drop) !== undefined;
 
 	hoverHighlight.Adornee = targetExists ? targetModel : undefined;
+	state.hoveredEntityId = entityId;
 }
 
-export = ObjectHovers satisfies RootSystem;
+export = ObjectHovers as RootSystem;

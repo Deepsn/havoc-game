@@ -8,12 +8,15 @@ export const raycastParams = new RaycastParams();
 raycastParams.FilterType = Enum.RaycastFilterType.Exclude;
 raycastParams.FilterDescendantsInstances = [Workspace.Terrain];
 
-export function getMouseTarget(RaycastParams: RaycastParams = raycastParams) {
+export function getMouseTarget(
+	RaycastParams: RaycastParams = raycastParams,
+	range = 1_000,
+) {
 	if (!camera) {
 		return {
 			Position: Vector3.zero,
 			Normal: Vector3.zero,
-			Distance: 1_000,
+			Distance: range,
 		} as RaycastResult & { Instance: undefined };
 	}
 
@@ -24,7 +27,7 @@ export function getMouseTarget(RaycastParams: RaycastParams = raycastParams) {
 
 	const cameraCFrame = camera.CFrame;
 	const origin = cameraCFrame.Position;
-	const direction = mouseRay.Direction.mul(1_000);
+	const direction = mouseRay.Direction.mul(range);
 
 	const raycastResult = Workspace.Raycast(origin, direction, RaycastParams);
 	const result =
@@ -32,7 +35,7 @@ export function getMouseTarget(RaycastParams: RaycastParams = raycastParams) {
 		({
 			Position: origin.add(direction),
 			Normal: Vector3.zero,
-			Distance: 1_000,
+			Distance: range,
 		} as RaycastResult & { Instance: undefined });
 
 	debug.profileend();
@@ -40,14 +43,29 @@ export function getMouseTarget(RaycastParams: RaycastParams = raycastParams) {
 	return result;
 }
 
-export function getMouseHit(RaycastParams: RaycastParams = raycastParams) {
+export function getMouseHit(
+	ignoreList?: (Instance | undefined)[],
+	range = 1_000,
+	RaycastParams = raycastParams,
+) {
 	if (!camera) {
 		return mouse.Hit;
 	}
 
 	debug.profilebegin("getMouseHit");
 
-	const target = getMouseTarget(RaycastParams);
+	if (ignoreList) {
+		for (const ignore of ignoreList) {
+			if (
+				ignore &&
+				!RaycastParams.FilterDescendantsInstances.includes(ignore)
+			) {
+				RaycastParams.AddToFilter(ignore);
+			}
+		}
+	}
+
+	const target = getMouseTarget(RaycastParams, range);
 	const position = target.Position;
 	const cameraCFrame = camera.CFrame;
 

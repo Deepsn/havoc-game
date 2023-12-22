@@ -26,6 +26,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@rbxts/make": "^1.0.6",
     "@rbxts/matter": "^0.6.6",
     "@rbxts/plasma": "0.4.1-ts.1",
     "@rbxts/react-roblox": "^0.2.0",

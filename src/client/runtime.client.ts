@@ -1,6 +1,6 @@
 import { startReact } from "@/client/components/app";
 import { start } from "@/shared/matter/start";
-import { System } from "@rbxts/matter";
+import { AnyEntity, System } from "@rbxts/matter";
 import { ReplicatedStorage } from "@rbxts/services";
 
 declare const script: {
@@ -9,10 +9,12 @@ declare const script: {
 
 export interface ClientState {
 	debugEnabled?: boolean;
+	hoveredEntityId?: AnyEntity;
+	currentDraggingEntityId?: AnyEntity;
 }
 
 const clientState: ClientState = {
-	debugEnabled: true,
+	debugEnabled: false,
 };
 
 const [world, state] = start(
